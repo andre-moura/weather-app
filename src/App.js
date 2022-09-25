@@ -1,13 +1,23 @@
 import './App.css';
 import { useState } from 'react'
 
+import clearIcon from  '../src/assets/img/clear.png'
+import rainyIcon from  '../src/assets/img/rainy.png'
+import cloudyIcon from  '../src/assets/img/cloudy.png'
+import snowIcon from  '../src/assets/img/snow.png'
+// import mistIcon from  '../src/assets/img/mist.png'
+// import showerRainIcon from  '../src/assets/img/shower-rain.png'
+import scatterCloudIcon from  '../src/assets/img/scatter-cloud.png'
+import thunderIcon from  '../src/assets/img/thunderstorm.png'
+
 function App() {
-
-
   const apiKey = ''
   const [weatherData, setWeatherData] = useState([{}]);
   const [city, setCity] = useState("")
-  
+  const iconStyle = {
+    width: "75px",
+  }
+
   const getWeather = (event) => {
     if (event.key === "Enter") {  
       fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`).then(
@@ -23,6 +33,23 @@ function App() {
     }
   }
   
+  function WeatherIcon(main){
+    switch (toString(main)) {
+      case "Clouds":
+        return cloudyIcon;
+      case "Clear":
+        return clearIcon;
+      case "Rain":
+        return rainyIcon;
+      case "Snow":
+        return snowIcon;
+      case "Thunderstorm":
+        return thunderIcon;
+      default:
+        return scatterCloudIcon;
+    }
+  }
+
   return (
     <div className="weather-container">
       <input className="weather-input" placeholder="Enter City..." onChange={e => setCity(e.target.value)} value={city} onKeyPress={getWeather}/>
@@ -34,12 +61,15 @@ function App() {
           </p>
         </div>
       ) : (
-        <div>
-          <p>{weatherData.name}</p>
-          <p>{Math.round(weatherData.main.temp)}°C</p>
-          <p>{weatherData.weather[0].main}</p>
+        <div className="weather-box">
+          <div>
+            <p className="city">{weatherData.sys.country}, {weatherData.name}</p>
+            <p className="temperature">{Math.round(weatherData.main.temp)}°C</p>
+            <img src={WeatherIcon(weatherData.weather[0].main)} style={iconStyle} alt={weatherData.weather[0].main}/>
+          </div>
         </div>
       )}
+
       {weatherData.cod === "404" ? (
         <p>
           City not found!
