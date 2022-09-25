@@ -1,0 +1,20 @@
+.weather-container {
+    display: flex;
+    padding: 25px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.weather-input {
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    margin: auto;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+.weather-input:hover {
+    outline: none;
+}
