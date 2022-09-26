@@ -1,7 +1,13 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 body {
     color: white;
-    background-color: #121212;
-    background-image: url('../src/assets/img/night.jpg');
+    background-repeat: no-repeat;
+    background-image: url('../src/assets/img/morning.jpg');
+    background-position: center;
     background-size: cover;
 }
 .weather-container {
@@ -20,20 +26,28 @@ body {
     border: 1px solid #ccc;
     font-size: 15px;
 }
-
+.kpi-temp {
+    font-size: 20px;
+    display: block;
+}
 .weather-input:hover {
     outline: none;
 }
-
+.box-temp {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 20px;
+}
 .weather-box {
-    text-align: center;
     background: #191919;
     border-radius: 10px;
     padding: 60px;
-    width: 30%;
-    height: 200px;
+    width: 40%;
     color: white;
     margin-top: 100px;
+    text-align: center;
 }
 
 .temperature {

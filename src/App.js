@@ -66,6 +66,11 @@ function App() {
             <p className="city">{weatherData.sys.country}, {weatherData.name}</p>
             <p className="temperature">{Math.round(weatherData.main.temp)}°C</p>
             <img src={WeatherIcon(weatherData.weather[0].main)} style={iconStyle} alt={weatherData.weather[0].main}/>
+            <div className="box-temp">
+              <span className="kpi-temp">Maximum of {Math.round(weatherData.main.temp_max)}°C </span>
+              <span className="kpi-temp">Minimum of {Math.round(weatherData.main.temp_min)}°C </span>
+              <span className="kpi-temp">Feels like {Math.round(weatherData.main.feels_like)}°C </span>
+            </div>
           </div>
         </div>
       )}
