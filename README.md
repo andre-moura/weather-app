@@ -21,7 +21,7 @@ npm i
 **Set your API Token using Windows**
 
 ```bash
-set API_KEY=your-api-key-here
+set API_KEY "your-api-key-here"
 ```
 
 **Set your API Token using Unix-based Operating Systems (Linux and macOS)**
