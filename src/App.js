@@ -10,7 +10,7 @@ import thunderIcon from  '../src/assets/img/thunderstorm.png'
 
 
 function App() {
-  const apiKey = process.env.REACT_APP_API_KEY ;
+  const apiKey = process.env.REACT_APP_API_KEY;
   const [weatherData, setWeatherData] = useState([{}]);
   const [city, setCity] = useState("");
   const iconStyle = {
