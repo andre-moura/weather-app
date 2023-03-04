@@ -18,19 +18,20 @@ npm i
 ```
 
 
-**Set your API Token using Windows**
+## Set your API Token and start application
 
+**Windows (cmd.exe)**
 ```bash
-set API_KEY "your-api-key-here"
+set "REACT_APP_API_KEY=YourSecretKey" && npm start
 ```
 
-**Set your API Token using Unix-based Operating Systems (Linux and macOS)**
+**Windows (Powershell)**
 ```bash
-export API_KEY=your-api-key-here
+($env:REACT_APP_API_KEY = "YourSecretKey") -and (npm start)
 ```
 
-**Run the application in the development mode**
+**Linux, macOS (Bash)**
 ```bash
-npm start
+REACT_APP_API_KEY=YourSecretKey npm start
 ```
 **Open [http://localhost:3000](http://localhost:3000) to view it in your browser.**
