@@ -5,17 +5,16 @@ import clearIcon from  '../src/assets/img/clear.png'
 import rainyIcon from  '../src/assets/img/rainy.png'
 import cloudyIcon from  '../src/assets/img/cloudy.png'
 import snowIcon from  '../src/assets/img/snow.png'
-// import mistIcon from  '../src/assets/img/mist.png'
-// import showerRainIcon from  '../src/assets/img/shower-rain.png'
 import scatterCloudIcon from  '../src/assets/img/scatter-cloud.png'
 import thunderIcon from  '../src/assets/img/thunderstorm.png'
 
+
 function App() {
-  const apiKey = ''
+  const apiKey = process.env.REACT_APP_API_KEY ;
   const [weatherData, setWeatherData] = useState([{}]);
-  const [city, setCity] = useState("")
+  const [city, setCity] = useState("");
   const iconStyle = {
-    width: "75px",
+    width: "75px"
   }
 
   const getWeather = (event) => {
@@ -57,7 +56,7 @@ function App() {
       typeof weatherData.main === "undefined" ? (
         <div>
           <p>
-            Welcome to Weather World! Enter in a city to get the weather.
+            Welcome to Weather App! Enter in a city to get the weather.
           </p>
         </div>
       ) : (
