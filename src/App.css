@@ -1,15 +1,25 @@
+:root {
+    --black: #1f1f1f;
+    --gray: #999999;
+    --blue: #303F9F;
+    --white: #ffffff;
+    --radius: 6px;
+}
+
 body, html {
     height: 100%;
     margin: 0;
     padding: 0;
 }
+
 body {
     color: white;
     background-repeat: no-repeat;
-    background-color: #303F9F;
+    background-color: var(--blue);
     background-position: center;
     background-size: cover;
 }
+
 .weather-container {
     display: flex;
     padding: 25px;
@@ -26,38 +36,46 @@ body {
     border: 1px solid #ccc;
     font-size: 15px;
 }
-.kpi-temp {
-    font-size: 20px;
-    display: block;
-}
+
 .weather-input:hover {
     outline: none;
 }
-.box-temp {
+
+/* .container {
+    background-color: #1d1d1d71;
+    padding: 0 25px 100px 25px;
+}
+
+.days-container {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    margin-top: 20px;
-}
-.weather-box {
-    background: #191919;
-    border-radius: 10px;
-    padding: 60px;
-    width: 40%;
-    color: white;
-    margin-top: 100px;
-    text-align: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    height: 200px;
+    width: 100%;
 }
 
-.temperature {
-    font-size: 50px;
-    font-weight: 600;
-    margin: 0;
+.box {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 150px;
+    height: 250px;
+    background-color: var(--black);
+    border-radius: var(--radius);
 }
 
-.city {
-    font-size: 30px;
+.day {
+    border-radius: 50px;
+    font-size: 2em;
     font-weight: 600;
-    margin: 0;
+    margin-bottom: 4rem;
+    border-radius: 50px;
+    background-color: #999999;
 }
+
+.min, .max {
+    font-size: 1.2em;
+    margin-bottom: 1rem;
+} */
