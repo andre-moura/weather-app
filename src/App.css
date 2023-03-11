@@ -43,10 +43,10 @@ body {
     outline: none;
 }
 .container {
-    padding: 0 20%;
+    padding: 0 10%;
 }
 .cards {
     text-align: center;
     background-color: var(--black);
-    border-radius: var(--radius);
+    border-radius: 30px;
 }

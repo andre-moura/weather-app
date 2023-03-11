@@ -125,8 +125,8 @@ function App() {
     <div>
       <div className='weather-container'>
         <input className='weather-input' placeholder='Search City...' onChange={e => setTypedCity(e.target.value)} value={typedCity} onKeyDown={getWeather} />
-        <h1>{currentTime}</h1>
-        <h3>{currentDate}</h3>
+        {/* <h1>{currentTime}</h1>
+        <h3>{currentDate}</h3> */}
       </div>
 
         {

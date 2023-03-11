@@ -15,11 +15,11 @@ const WeatherSlider = ({ forecast }) => {
     const handleResize = () => {
       const width = window.innerWidth;
       if (width < 768) {
-        setSlidesPerView(1);
-      } else if (width < 1024) {
         setSlidesPerView(2);
-      } else {
+      } else if (width < 1024) {
         setSlidesPerView(3);
+      } else {
+        setSlidesPerView(5);
       }
     };
     window.addEventListener("resize", handleResize);
