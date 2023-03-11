@@ -30,7 +30,7 @@ body {
 
 .weather-input {
     padding: 10px;
-    width: 80%;
+    min-width: 80%;
     border-radius: 5px;
     margin: auto;
     border: 1px solid #ccc;
@@ -41,41 +41,23 @@ body {
     outline: none;
 }
 
-/* .container {
-    background-color: #1d1d1d71;
-    padding: 0 25px 100px 25px;
-}
-
-.days-container {
+.slider-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
-    height: 200px;
-    width: 100%;
 }
 
-.box {
-    display: flex;
+.slider {
+    justify-content: center;
     align-items: center;
-    flex-direction: column;
-    width: 150px;
-    height: 250px;
+    text-align: center;
+    max-width: 80%;
+}
+
+.slider div {
+    min-height: 300px;
     background-color: var(--black);
-    border-radius: var(--radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-.day {
-    border-radius: 50px;
-    font-size: 2em;
-    font-weight: 600;
-    margin-bottom: 4rem;
-    border-radius: 50px;
-    background-color: #999999;
-}
-
-.min, .max {
-    font-size: 1.2em;
-    margin-bottom: 1rem;
-} */

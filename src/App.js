@@ -1,18 +1,11 @@
 import './App.css';
 import { useState, useEffect } from 'react'
+import WeatherSlider from './components/WeatherSlider'
 import Geolocation from 'react-geolocation';
-
-import clearIcon from '../src/assets/img/clear.png'
-import rainyIcon from '../src/assets/img/rainy.png'
-import cloudyIcon from '../src/assets/img/cloudy.png'
-import snowIcon from '../src/assets/img/snow.png'
-import scatterCloudIcon from '../src/assets/img/scatter-cloud.png'
-import thunderIcon from '../src/assets/img/thunderstorm.png'
-
 
 function App() {
   const apiKey = process.env.REACT_APP_API_KEY;
-  const baseURL = `https://api.openweathermap.org/data/2.5/weather`
+  const baseURL = `https://api.openweathermap.org/data/2.5/forecast`
 
   const [weatherData, setWeatherData] = useState([{}]);
   const options = { weekday: 'long', day: 'numeric', month: 'short' };
@@ -32,7 +25,7 @@ function App() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          const apiUrl = baseURL +`?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
+          const apiUrl = baseURL + `?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
           fetch(apiUrl)
             .then((response) => response.json())
             .then((data) => {
@@ -65,98 +58,49 @@ function App() {
   const getWeather = (event) => {
     if (event.key === 'Enter') {
       const apiKey = process.env.REACT_APP_API_KEY;
-      const apiUrl = baseURL +`?q=${typedCity}&appid=${apiKey}&units=metric`;
+      const apiUrl = baseURL + `?q=${typedCity}&appid=${apiKey}&units=metric`;
       fetch(apiUrl).then(
         response => response.json()
       ).then(
         data => {
           setWeatherData(data)
-          setCountry(data.sys.country);
-          setCity(data.name);
-          console.log(data)
+          // setCountry(data.city.country);
+          // setCity(data.city.name);
+          console.log(data.dt_txt)
+          console.log(data.list)
+          // console.log(data)
+          // console.log(data)
         }
       )
     }
   }
 
-  // function WeatherIcon(main) {
-  //   switch (toString(main)) {
-  //     case 'Clouds':
-  //       return cloudyIcon;
-  //     case 'Clear':
-  //       return clearIcon;
-  //     case 'Rain':
-  //       return rainyIcon;
-  //     case 'Snow':
-  //       return snowIcon;
-  //     case 'Thunderstorm':
-  //       return thunderIcon;
-  //     default:
-  //       return scatterCloudIcon;
-  //   }
-  // }
-
   return (
-    <div className='weather-container'>
-      <input className='weather-input' placeholder='Enter City...' onChange={e => setTypedCity(e.target.value)} value={typedCity} onKeyDown={getWeather} />
-      <h1>{currentTime}</h1>
-      <h3>{currentDate}</h3>
-      {
-        typeof weatherData.main === 'undefined' ? (
-          <div>
-            <p>
-              Welcome to Weather App! Enter in a city to get the weather.
-            </p>
-          </div>
-        ) : (
-          <div className='container'>
-            <div className='days-container'>
-              <div className='box'>
-                <div className='day'>Mon</div>
-                <div className='min'>Min - 23ºC</div>
-                <div className='max'>Max - 23ºC</div>
-              </div>
-              <div className='box'>
-                <div className='day'>Mon</div>
-                <div className='min'>Min - 23ºC</div>
-                <div className='max'>Max - 23ºC</div>
-              </div>
-              <div className='box'>
-                <div className='day'>Mon</div>
-                <div className='min'>Min - 23ºC</div>
-                <div className='max'>Max - 23ºC</div>
-              </div>
-              <div className='box'>
-                <div className='day'>Mon</div>
-                <div className='min'>Min - 23ºC</div>
-                <div className='max'>Max - 23ºC</div>
-              </div>
-              <div className='box'>
-                <div className='day'>Mon</div>
-                <div className='min'>Min - 23ºC</div>
-                <div className='max'>Max - 23ºC</div>
-              </div>
-              <div className='box'>
-                <div className='day'>Mon</div>
-                <div className='min'>Min - 23ºC</div>
-                <div className='max'>Max - 23ºC</div>
-              </div>
-              <div className='box'>
-                <div className='day'>Mon</div>
-                <div className='min'>Min - 23ºC</div>
-                <div className='max'>Max - 23ºC</div>
-              </div>
-            </div>
-          </div>
-        )}
+    <div>
+      <div className='weather-container'>
+        <input className='weather-input' placeholder='Enter City...' onChange={e => setTypedCity(e.target.value)} value={typedCity} onKeyDown={getWeather} />
+        <h1>{currentTime}</h1>
+        <h3>{currentDate}</h3>
+      </div>
 
-      {weatherData.cod === '404' ? (
-        <p>
-          City not found!
-        </p>
-      ) : (
-        <div></div>
-      )}
+        {
+          typeof weatherData.list === 'undefined' ? (
+            <div>
+              <p>
+                Welcome to Weather App! Enter in a city to get the weather.
+              </p>
+            </div>
+          ) : (
+            <WeatherSlider forecast={weatherData.list}/>
+          )}
+
+        {weatherData.cod === '404' ? (
+          <p>
+            City not found!
+          </p>
+        ) : (
+          <div></div>
+        )}
     </div>
   );
 }
