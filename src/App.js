@@ -20,6 +20,21 @@ function App() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
 
+  const getWeather = (event) => {
+    if (event.key === 'Enter') {
+      const apiKey = process.env.REACT_APP_API_KEY;
+      const apiUrl = baseURL + `?q=${typedCity}&appid=${apiKey}&units=metric`;
+      fetch(apiUrl).then(
+        response => response.json()
+      ).then(
+        data => {
+          setWeatherData(data)
+          console.log(data)
+        }
+      )
+    }
+  }
+  
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -47,33 +62,14 @@ function App() {
     const interval = setInterval(() => {
       const currentDate = new Date();
       const hours = currentDate.getHours() % 12 || 12;
-      const minutes = currentDate.getMinutes();
+      const minutes = currentDate.getMinutes()
+      .toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
       const ampm = hours >= 12 ? 'PM' : 'AM';
       setCurrentTime(`${hours}:${minutes} ${ampm}`);
       setCurrentDate((new Date().toLocaleDateString('en-US', options)).toString());
     }, 10);
     return () => clearInterval(interval);
   }, []);
-
-  const getWeather = (event) => {
-    if (event.key === 'Enter') {
-      const apiKey = process.env.REACT_APP_API_KEY;
-      const apiUrl = baseURL + `?q=${typedCity}&appid=${apiKey}&units=metric`;
-      fetch(apiUrl).then(
-        response => response.json()
-      ).then(
-        data => {
-          setWeatherData(data)
-          // setCountry(data.city.country);
-          // setCity(data.city.name);
-          console.log(data.dt_txt)
-          console.log(data.list)
-          // console.log(data)
-          // console.log(data)
-        }
-      )
-    }
-  }
 
   return (
     <div>
@@ -86,7 +82,7 @@ function App() {
         {
           typeof weatherData.list === 'undefined' ? (
             <div>
-              <p>
+              <p className='welcome-message'>
                 Welcome to Weather App! Enter in a city to get the weather.
               </p>
             </div>
