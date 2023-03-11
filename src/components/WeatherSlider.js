@@ -30,11 +30,7 @@ const WeatherSlider = ({ forecast }) => {
   }, []);
 
   const options = {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'short',
-    hour: '2-digit',
-    minute: '2-digit',
+    weekday: 'long'
   };
 
   return (
@@ -52,14 +48,15 @@ const WeatherSlider = ({ forecast }) => {
         {forecast.map((data, index) => (
           <SwiperSlide className="cards" key={index}>
             <div>
-              <h2>{new Date(data.dt_txt).toLocaleDateString('en-US', options)}</h2>
+              <h2>{new Date(data.date).toLocaleDateString('en-US', options)}</h2>
               <img
-                src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`}
-                alt={data.weather[0].description}
+                src={`https://openweathermap.org/img/w/${data.icon}.png`}
+                alt={data.weatherDescription}
               />
-              <p>Max: {data.main.temp_max} &#8451;</p>
+              <p>{data.maxTemp} &#8451;</p>
+              {/* <p>Max: {data.main.temp_max} &#8451;</p>
               <p>Min: {data.main.temp_min} &#8451;</p>
-              <p>Description: {data.weather[0].description}</p>
+              <p>Description: {data.weather[0].description}</p> */}
             </div>
           </SwiperSlide>
         ))}
