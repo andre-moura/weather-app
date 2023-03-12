@@ -15,9 +15,6 @@ function App() {
   const [currentDate, setCurrentDate] = useState('');
 
   const [typedCity, setTypedCity] = useState('');
-  const [city, setCity] = useState('');
-  const [country, setCountry] = useState('');
-
 
   const getWeather = (event) => {
     if (event.key === 'Enter') {
@@ -28,14 +25,14 @@ function App() {
       ).then(
         data => {
           const groupedData = data.list.reduce((acc, current) => {
-            const date = current.dt_txt.split(" ")[0]; // get the date without the time
+            const date = new Date(current.dt_txt).toDateString(); // create new Date object and convert to string
             if (!acc[date]) {
               acc[date] = [];
             }
             acc[date].push(current);
             return acc;
           }, {});
-      
+
           // use map() to extract the relevant data for each day
           const relevantData = Object.keys(groupedData).map((date) => {
             const dayData = groupedData[date];
@@ -53,14 +50,14 @@ function App() {
           });
           setWeatherForecast(relevantData)
           setWeatherData(data)
+          console.log(data)
         })
         .catch((error) => {
           console.log(error);
-        }
-      )
+        })
     }
   }
-  
+
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -69,16 +66,16 @@ function App() {
           const apiUrl = baseURL + `lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`;
           fetch(apiUrl)
             .then((response) => response.json())
-            .then((data) => {
+            .then(data => {
               const groupedData = data.list.reduce((acc, current) => {
-                const date = current.dt_txt.split(" ")[0]; // get the date without the time
+                const date = new Date(current.dt_txt).toDateString(); // create new Date object and convert to string
                 if (!acc[date]) {
                   acc[date] = [];
                 }
                 acc[date].push(current);
                 return acc;
               }, {});
-          
+
               // use map() to extract the relevant data for each day
               const relevantData = Object.keys(groupedData).map((date) => {
                 const dayData = groupedData[date];
@@ -96,6 +93,7 @@ function App() {
               });
               setWeatherForecast(relevantData)
               setWeatherData(data)
+              console.log(data)
             })
             .catch((error) => console.log(error));
         },
@@ -113,8 +111,8 @@ function App() {
       const currentDate = new Date();
       const hours = currentDate.getHours() % 12 || 12;
       const minutes = currentDate.getMinutes()
-      .toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
-      const ampm = hours >= 12 ? 'PM' : 'AM';
+        .toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+      const ampm = currentDate.getHours() >= 12 ? 'PM' : 'AM';
       setCurrentTime(`${hours}:${minutes} ${ampm}`);
       setCurrentDate((new Date().toLocaleDateString('en-US', options)).toString());
     }, 10);
@@ -125,28 +123,67 @@ function App() {
     <div>
       <div className='weather-container'>
         <input className='weather-input' placeholder='Search City...' onChange={e => setTypedCity(e.target.value)} value={typedCity} onKeyDown={getWeather} />
-        {/* <h1>{currentTime}</h1>
-        <h3>{currentDate}</h3> */}
+        {
+          typeof weatherData.list !== 'undefined' ? (
+            <div>
+              <h4>{weatherData.city.country}, {weatherData.city.name}</h4>
+              <h1>{Math.round(weatherData.list[0].main.temp)}&#8451;</h1>
+              <div>
+                <img
+                  src={`https://openweathermap.org/img/w/${weatherData.list[0].weather[0].icon}.png`}
+                  alt={weatherData.list[0].weather[0].description}
+                  width={50}
+                />
+              </div>
+              <h4>{currentDate}</h4>
+              <h4>{currentTime}</h4>
+            </div>
+          )
+            :
+            (<div></div>)
+        }
       </div>
 
-        {
-          typeof weatherForecast[0].minTemp === 'undefined' ? (
-            <div>
-              <p className='welcome-message'>
-                Welcome to Weather App! Enter in a city to get the weather.
-              </p>
-            </div>
-          ) : (
-            <WeatherSlider forecast={weatherForecast}/>
-          )}
-
-        {weatherData.cod === '404' ? (
-          <p>
-            City not found!
-          </p>
+      {
+        typeof weatherForecast[0].minTemp === 'undefined' ? (
+          <div>
+            <p className='welcome-message'>
+              Welcome to Weather App! Enter in a city to get the weather.
+            </p>
+          </div>
         ) : (
-          <div></div>
+          <div className='analysis-container'>
+            <h3>Week Forecast</h3>
+            <WeatherSlider forecast={weatherForecast} />
+            <h3>Today's Analysis</h3>
+            <div className='container-data'>
+              <div className='today-card'>
+                <span className='tag'>Visibility</span>
+                <span>{weatherData.list[0].visibility}</span>
+              </div>
+              <div className='today-card'>
+                <span>Wind Speed</span>
+                <span>{weatherData.list[0].wind.speed}</span>
+              </div>
+              <div className='today-card'>
+                <span>Humidity</span>
+                <span>{weatherData.list[0].main.humidity}%</span>
+              </div>
+              <div className='today-card'>
+                <span>Pressure</span>
+                <span>{weatherData.list[0].main.pressure}</span>
+              </div>
+            </div>
+          </div>
         )}
+
+      {weatherData.cod === '404' ? (
+        <div>
+          City not found!
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }

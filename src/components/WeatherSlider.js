@@ -53,7 +53,8 @@ const WeatherSlider = ({ forecast }) => {
                 src={`https://openweathermap.org/img/w/${data.icon}.png`}
                 alt={data.weatherDescription}
               />
-              <p>{data.maxTemp} &#8451;</p>
+              <div>{Math.round(data.maxTemp)}&#8451;</div>
+              {/* <div>{Math.round(data.maxTemp)} &#8451;</div> */}
               {/* <p>Max: {data.main.temp_max} &#8451;</p>
               <p>Min: {data.main.temp_min} &#8451;</p>
               <p>Description: {data.weather[0].description}</p> */}
