@@ -3,7 +3,7 @@
 
 This project aims to utilize the Open Weather API to fetch temperature data for any city across the globe. To access this web application, you will need to create your own set of credentials using [Open Weather Map](https://openweathermap.org/api).
 
-<img src="https://github.com/andre-moura/weather-app/blob/master/src/assets/img/index-weather.png?raw=true"/>
+<img src="https://github.com/andre-moura/weather-app/blob/master/src/assets/img/index-weather-2.png?raw=true"/>
 
 # How to get started
 
